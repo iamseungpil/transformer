@@ -6,7 +6,7 @@ import torch.nn as nn
 from torchtext.data import BucketIterator
 
 import torch.optim as optim
-from preprocessing import dataloader
+from preprocessing import preprocess
 
 import math
 import time
@@ -14,7 +14,7 @@ import time
 import torch
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-SRC, TRG, train_dataset, valid_dataset, test_dataset = dataloader()
+SRC, TRG, train_dataset, valid_dataset, test_dataset = preprocess()
 
 BATCH_SIZE = 128
 INPUT_DIM = len(SRC.vocab)
