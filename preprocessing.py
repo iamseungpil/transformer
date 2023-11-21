@@ -2,11 +2,6 @@ import spacy
 from torchtext.data import Field, BucketIterator
 from dataloader import Multi30k, WMT14
 
-import os
-import urllib.request
-import tarfile
-from typing import List, Tuple
-
 def preprocess():
     spacy_en = spacy.load('en_core_web_sm') # 영어 토큰화(tokenization)
     spacy_de = spacy.load('de_core_news_sm') # 독일어 토큰화(tokenization)
