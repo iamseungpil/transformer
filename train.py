@@ -2,6 +2,8 @@ from model import Encoder
 from model import Decoder
 from model import Transformer
 
+from test import show_bleu
+
 import torch.nn as nn
 from torchtext.data import BucketIterator
 
@@ -176,12 +178,11 @@ for epoch in range(N_EPOCHS):
         best_valid_loss = valid_loss
         torch.save(model.state_dict(), 'transformer_german_to_english.pt')
 
-
-
 model.load_state_dict(torch.load('transformer_german_to_english.pt'))
 
 test_loss = evaluate(model, test_iterator, criterion)
 
 print(f'Test Loss: {test_loss:.3f} | Test PPL: {math.exp(test_loss):.3f}')
 
+show_bleu(test_dataset, SRC, TRG, model, device)
 
