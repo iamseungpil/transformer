@@ -18,7 +18,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 SRC, TRG, train_dataset, valid_dataset, test_dataset = preprocess()
 
-BATCH_SIZE = 64
+BATCH_SIZE = 16
 INPUT_DIM = len(SRC.vocab)
 OUTPUT_DIM = len(TRG.vocab)
 HIDDEN_DIM = 256

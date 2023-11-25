@@ -20,12 +20,17 @@ def preprocess():
     # 영어(English) 문장을 토큰화 하는 함수
     def tokenize_en(text):
         return [token.text for token in spacy_en.tokenizer(text)]
+    
+    def tokenize_space(text):
+        result = text.split(' ')
+        print(result)
+        return result
 
-    SRC = Field(tokenize=tokenize_de, init_token="", eos_token="", lower=True, batch_first=True)
-    TRG = Field(tokenize=tokenize_en, init_token="", eos_token="", lower=True, batch_first=True)
+    SRC = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
+    TRG = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
 
-    # train_dataset, valid_dataset, test_dataset = Multi30k.splits(exts=(".de", ".en"), fields=(SRC, TRG))
-    train_dataset, valid_dataset, test_dataset = WMT14.splits(exts=(".de", ".en"), fields=(SRC, TRG))
+    train_dataset, valid_dataset, test_dataset = Multi30k.splits(exts=(".de", ".en"), fields=(SRC, TRG))
+    # train_dataset, valid_dataset, test_dataset = WMT14.splits(exts=(".de", ".en"), fields=(SRC, TRG))
 
     print(f"학습 데이터셋(training dataset) 크기: {len(train_dataset.examples)}개")
     print(f"평가 데이터셋(validation dataset) 크기: {len(valid_dataset.examples)}개")
