@@ -14,17 +14,15 @@ def preprocess():
 
 
     # 독일어(Deutsch) 문장을 토큰화 하는 함수 (순서를 뒤집지 않음)
-    def tokenize_de(text):
-        return [token.text for token in spacy_de.tokenizer(text)]
+    # def tokenize_de(text):
+    #    return [token.text for token in spacy_de.tokenizer(text)]
 
     # 영어(English) 문장을 토큰화 하는 함수
-    def tokenize_en(text):
-        return [token.text for token in spacy_en.tokenizer(text)]
+    # def tokenize_en(text):
+    #    return [token.text for token in spacy_en.tokenizer(text)]
     
     def tokenize_space(text):
-        result = text.split(' ')
-        print(result)
-        return result
+        return text.split(' ')
 
     SRC = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
     TRG = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
