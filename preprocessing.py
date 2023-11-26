@@ -15,18 +15,18 @@ def preprocess():
 
     # 독일어(Deutsch) 문장을 토큰화 하는 함수 (순서를 뒤집지 않음)
 
-    def tokenize_de(text):
-       return [token.text for token in spacy_de.tokenizer(text)]
+    # def tokenize_de(text):
+    #    return [token.text for token in spacy_de.tokenizer(text)]
 
-    # 영어(English) 문장을 토큰화 하는 함수
-    def tokenize_en(text):
-       return [token.text for token in spacy_en.tokenizer(text)]
+    # # 영어(English) 문장을 토큰화 하는 함수
+    # def tokenize_en(text):
+    #    return [token.text for token in spacy_en.tokenizer(text)]
     
-    # def tokenize_space(text):
-    #     return text.split(' ')
+    def tokenize_space(text):
+        return text.split(' ')
 
-    SRC = Field(tokenize=tokenize_de, init_token="", eos_token="", lower=True, batch_first=True)
-    TRG = Field(tokenize=tokenize_en, init_token="", eos_token="", lower=True, batch_first=True)
+    SRC = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
+    TRG = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
 
     # train_dataset, valid_dataset, test_dataset = Multi30k.splits(exts=(".de", ".en"), fields=(SRC, TRG))
     train_dataset, valid_dataset, test_dataset = WMT14.splits(exts=(".de", ".en"), fields=(SRC, TRG))

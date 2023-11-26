@@ -1,3 +1,7 @@
+import os
+
+os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
+
 from model import Encoder
 from model import Decoder
 from model import Transformer
@@ -14,11 +18,12 @@ import math
 import time
 
 import torch
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
 
 SRC, TRG, train_dataset, valid_dataset, test_dataset = preprocess()
 
-BATCH_SIZE = 1
+BATCH_SIZE = 16
 INPUT_DIM = len(SRC.vocab)
 OUTPUT_DIM = len(TRG.vocab)
 HIDDEN_DIM = 256
@@ -139,6 +144,11 @@ def evaluate(model, iterator, criterion):
             src = batch.src
             trg = batch.trg
 
+            if src.shape[1] > 100:
+               src = src[:, :100]
+            if trg.shape[1] > 100:
+                trg = trg[:,:100]
+
             # 출력 단어의 마지막 인덱스()는 제외
             # 입력을 할 때는 부터 시작하도록 처리
             output, _ = model(src, trg[:,:-1])
@@ -172,7 +182,7 @@ def epoch_time(start_time, end_time):
 N_EPOCHS = 10
 CLIP = 1
 best_valid_loss = float('inf')
-
+ 
 for epoch in range(N_EPOCHS):
     start_time = time.time() # 시작 시간 기록
 

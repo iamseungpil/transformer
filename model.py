@@ -162,6 +162,9 @@ class Encoder(nn.Module):
         batch_size = src.shape[0]
         src_len = src.shape[1]
 
+        if src_len > 100:
+            print(src_len)
+
         pos = torch.arange(0, src_len).unsqueeze(0).repeat(batch_size, 1).to(self.device)
 
         # pos: [batch_size, src_len]
@@ -174,7 +177,6 @@ class Encoder(nn.Module):
         # 모든 인코더 레이어를 차례대로 거치면서 순전파(forward) 수행
         for i, layer in enumerate(self.layers):
             src = layer(src, src_mask)
-            print(i, "\n")
 
         # src: [batch_size, src_len, hidden_dim]
 
@@ -343,6 +345,9 @@ class Transformer(nn.Module):
 
         # src_mask: [batch_size, 1, 1, src_len]
         # trg_mask: [batch_size, 1, trg_len, trg_len]
+
+        if src.shape[1] > 100:
+            print(src.shape[1])
 
         enc_src = self.encoder(src, src_mask)
 

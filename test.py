@@ -80,24 +80,24 @@ def show_bleu(data, src_field, trg_field, model, device, max_len=50):
             print(f"정답: {trg}")
 
     bleu = bleu_score(pred_trgs, trgs, max_n=4, weights=[0.25, 0.25, 0.25, 0.25])
-    print(f'Total BLEU Score = {bleu*100:.2f}')
+    print(f'Total BLEU Score = {bleu*100:.6f}')
 
     individual_bleu1_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[1, 0, 0, 0])
     individual_bleu2_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[0, 1, 0, 0])
     individual_bleu3_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[0, 0, 1, 0])
     individual_bleu4_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[0, 0, 0, 1])
 
-    print(f'Individual BLEU1 score = {individual_bleu1_score*100:.2f}') 
-    print(f'Individual BLEU2 score = {individual_bleu2_score*100:.2f}') 
-    print(f'Individual BLEU3 score = {individual_bleu3_score*100:.2f}') 
-    print(f'Individual BLEU4 score = {individual_bleu4_score*100:.2f}') 
+    print(f'Individual BLEU1 score = {individual_bleu1_score*100:.6f}') 
+    print(f'Individual BLEU2 score = {individual_bleu2_score*100:.6f}') 
+    print(f'Individual BLEU3 score = {individual_bleu3_score*100:.6f}') 
+    print(f'Individual BLEU4 score = {individual_bleu4_score*100:.6f}') 
 
     cumulative_bleu1_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[1, 0, 0, 0])
     cumulative_bleu2_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[1/2, 1/2, 0, 0])
     cumulative_bleu3_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[1/3, 1/3, 1/3, 0])
     cumulative_bleu4_score = bleu_score(pred_trgs, trgs, max_n=4, weights=[1/4, 1/4, 1/4, 1/4])
 
-    print(f'Cumulative BLEU1 score = {cumulative_bleu1_score*100:.2f}') 
-    print(f'Cumulative BLEU2 score = {cumulative_bleu2_score*100:.2f}') 
-    print(f'Cumulative BLEU3 score = {cumulative_bleu3_score*100:.2f}') 
-    print(f'Cumulative BLEU4 score = {cumulative_bleu4_score*100:.2f}') 
+    print(f'Cumulative BLEU1 score = {cumulative_bleu1_score*100:.6f}') 
+    print(f'Cumulative BLEU2 score = {cumulative_bleu2_score*100:.6f}') 
+    print(f'Cumulative BLEU3 score = {cumulative_bleu3_score*100:.6f}') 
+    print(f'Cumulative BLEU4 score = {cumulative_bleu4_score*100:.6f}') 

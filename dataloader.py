@@ -34,8 +34,8 @@ class TranslationDataset(data.Dataset):
         with io.open(src_path, mode='r', encoding='utf-8') as src_file, \
                 io.open(trg_path, mode='r', encoding='utf-8') as trg_file:
             
-            src_lines = src_file.read().split('\n')[:30000] # 추후 인덱싱슬라이스 제거하기
-            trg_lines = trg_file.read().split('\n')[:30000]
+            src_lines = src_file.read().split('\n')[:2000] # 추후 인덱싱슬라이스 제거하기
+            trg_lines = trg_file.read().split('\n')[:2000]
 
             c = list(zip(src_lines, trg_lines))
             examples = [data.Example.fromlist([x, y], fields) for x, y in c]
