@@ -160,7 +160,9 @@ class Encoder(nn.Module):
         # src_mask: [batch_size, src_len]
 
         batch_size = src.shape[0]
+
         src_len = src.shape[1]
+
 
         pos = torch.arange(0, src_len).unsqueeze(0).repeat(batch_size, 1).to(self.device)
 
@@ -254,6 +256,8 @@ class Decoder(nn.Module):
 
         batch_size = trg.shape[0]
         trg_len = trg.shape[1]
+
+        
 
         pos = torch.arange(0, trg_len).unsqueeze(0).repeat(batch_size, 1).to(self.device)
 

@@ -27,8 +27,8 @@ def preprocess():
     SRC = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
     TRG = Field(tokenize=tokenize_space, init_token="", eos_token="", lower=True, batch_first=True)
 
-    train_dataset, valid_dataset, test_dataset = Multi30k.splits(exts=(".de", ".en"), fields=(SRC, TRG))
-    # train_dataset, valid_dataset, test_dataset = WMT14.splits(exts=(".de", ".en"), fields=(SRC, TRG))
+    # train_dataset, valid_dataset, test_dataset = Multi30k.splits(exts=(".de", ".en"), fields=(SRC, TRG))
+    train_dataset, valid_dataset, test_dataset = WMT14.splits(exts=(".de", ".en"), fields=(SRC, TRG))
 
     print(f"학습 데이터셋(training dataset) 크기: {len(train_dataset.examples)}개")
     print(f"평가 데이터셋(validation dataset) 크기: {len(valid_dataset.examples)}개")

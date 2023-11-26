@@ -87,6 +87,11 @@ def train(model, iterator, optimizer, criterion, clip):
         src = batch.src
         trg = batch.trg
 
+        if src.shape[1] > 100:
+            src = src[:, :100]
+        if trg.shape[1] > 100:
+            trg = trg[:, :100]
+
         optimizer.zero_grad()
 
         # 출력 단어의 마지막 인덱스()는 제외
@@ -185,4 +190,3 @@ test_loss = evaluate(model, test_iterator, criterion)
 print(f'Test Loss: {test_loss:.3f} | Test PPL: {math.exp(test_loss):.3f}')
 
 show_bleu(test_dataset, SRC, TRG, model, device)
-
