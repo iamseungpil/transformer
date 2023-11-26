@@ -18,7 +18,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 SRC, TRG, train_dataset, valid_dataset, test_dataset = preprocess()
 
-BATCH_SIZE = 16
+BATCH_SIZE = 1
 INPUT_DIM = len(SRC.vocab)
 OUTPUT_DIM = len(TRG.vocab)
 HIDDEN_DIM = 256
@@ -87,10 +87,16 @@ def train(model, iterator, optimizer, criterion, clip):
         src = batch.src
         trg = batch.trg
 
+        if src.shape[1] > 100:
+            src = src[:, :100]
+        if trg.shape[1] > 100:
+            trg = trg[:,:100]
+        
         optimizer.zero_grad()
 
         # 출력 단어의 마지막 인덱스()는 제외
         # 입력을 할 때는 부터 시작하도록 처리
+       
         output, _ = model(src, trg[:,:-1])
 
         # output: [배치 크기, trg_len - 1, output_dim]
@@ -102,11 +108,13 @@ def train(model, iterator, optimizer, criterion, clip):
         # 출력 단어의 인덱스 0()은 제외
         trg = trg[:,1:].contiguous().view(-1)
 
+
         # output: [배치 크기 * trg_len - 1, output_dim]
         # trg: [배치 크기 * trg len - 1]
 
         # 모델의 출력 결과와 타겟 문장을 비교하여 손실 계산
         loss = criterion(output, trg)
+
         loss.backward() # 기울기(gradient) 계산
 
         # 기울기(gradient) clipping 진행

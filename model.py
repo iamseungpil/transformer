@@ -172,8 +172,9 @@ class Encoder(nn.Module):
         # src: [batch_size, src_len, hidden_dim]
 
         # 모든 인코더 레이어를 차례대로 거치면서 순전파(forward) 수행
-        for layer in self.layers:
+        for i, layer in enumerate(self.layers):
             src = layer(src, src_mask)
+            print(i, "\n")
 
         # src: [batch_size, src_len, hidden_dim]
 
